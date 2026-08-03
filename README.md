@@ -7,9 +7,9 @@ A web-based CSARCH2 cache-memory simulator comparing:
 
 The simulator uses the same configuration and immutable block-access sequence for both cache organizations so their results can be compared fairly.
 
-## Foundation status
+## Current status
 
-The engine foundation is implemented and covered by automated tests. The current web page is intentionally a small placeholder; the synchronized simulator interface is the next phase.
+The tested engine and complete functional simulator interface are implemented. The remaining interface work is optional visual polish, refined animation, and any improvements assigned to individual group members.
 
 Implemented core features:
 
@@ -22,6 +22,13 @@ Implemented core features:
 - Load-through and Non-load-through timing calculations
 - Input and main-memory boundary validation
 - One comparison API that runs both engines against the same sequence
+- Configuration controls for all required parameters and timing assumptions
+- Reproducible sequence preview for all three required tests
+- Synchronized Previous, Next, Play, Pause, Finish, and Reset controls
+- Step-by-step and final-snapshot modes
+- Side-by-side cache grids with hit, miss, eviction, and MRU states
+- Live required statistics and a complete combined trace log
+- Responsive layouts for desktop and smaller screens
 
 ## Local setup
 
@@ -129,3 +136,13 @@ The returned object contains the shared sequence and separate Direct Mapped and 
 ## Important constraint
 
 Main memory contains 1,024 blocks. Because the required Sequential and Mid-repeat traces access through block `2n - 1`, those required trace generators accept at most 512 cache blocks.
+
+## Remaining submission work
+
+- Perform the dedicated well-commented-source pass
+- Complete manual interface and edge-case testing
+- Add optional visual polish and refined animations
+- Confirm timing assumptions with the instructor or lecture material
+- Expand this README with the required three-test comparative analysis
+- Capture screenshots and record the walkthrough
+- Deploy the application and add the live and video links
