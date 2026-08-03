@@ -1,7 +1,7 @@
 :root {
   font-family:
-    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
+    "Lexend", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
   color: #e8eef8;
   background: #07101d;
   font-synthesis: none;
@@ -27,6 +27,34 @@
 
 * {
   box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: #3f6683 #091524;
+}
+
+/* Shared scrollbar treatment for the page, sequence strip, cache grids, and trace log. */
+*::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+
+*::-webkit-scrollbar-track {
+  border-radius: 999px;
+  background: #091524;
+}
+
+*::-webkit-scrollbar-thumb {
+  min-height: 40px;
+  border: 3px solid #091524;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #3b708c, #695a9f);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--direct), var(--associative));
+}
+
+*::-webkit-scrollbar-corner {
+  background: #091524;
 }
 
 html {
