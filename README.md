@@ -136,13 +136,3 @@ The returned object contains the shared sequence and separate Direct Mapped and 
 ## Important constraint
 
 Main memory contains 1,024 blocks. Because the required Sequential and Mid-repeat traces access through block `2n - 1`, those required trace generators accept at most 512 cache blocks.
-
-## Remaining submission work
-
-- Perform the dedicated well-commented-source pass
-- Complete manual interface and edge-case testing
-- Add optional visual polish and refined animations
-- Confirm timing assumptions with the instructor or lecture material
-- Expand this README with the required three-test comparative analysis
-- Capture screenshots and record the walkthrough
-- Deploy the application and add the live and video links
