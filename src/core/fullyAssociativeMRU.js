@@ -1,3 +1,7 @@
+/**
+ * Runs the Fully Associative + MRU side of the Machine 8 comparison.
+ */
+
 import { calculateStatistics } from "./statistics.js";
 import {
   calculateAccessTime,
@@ -8,6 +12,12 @@ import {
   validateCacheBlocks,
 } from "./validation.js";
 
+/**
+ * Makes a cache where every line starts empty.
+ *
+ * @param {number} cacheBlocks - Number of lines in the cache.
+ * @returns {Object[]} Empty Fully Associative cache lines.
+ */
 function createEmptyCache(cacheBlocks) {
   return Array.from({ length: cacheBlocks }, (_, lineIndex) => ({
     lineIndex,
@@ -18,6 +28,12 @@ function createEmptyCache(cacheBlocks) {
   }));
 }
 
+/**
+ * Finds the line that was used most recently.
+ *
+ * @param {Object[]} cache - Current cache lines.
+ * @returns {Object|null} The MRU line, or null when the cache is empty.
+ */
 function findMostRecentlyUsedLine(cache) {
   return cache.reduce((mostRecent, line) => {
     if (!line.valid) {
@@ -32,7 +48,15 @@ function findMostRecentlyUsedLine(cache) {
   }, null);
 }
 
+/**
+ * Copies the cache and marks its current MRU line.
+ *
+ * @param {Object[]} cache - Current cache lines.
+ * @param {number|null} mostRecentLineIndex - Index of the MRU line.
+ * @returns {Object[]} A copy that cannot be changed later.
+ */
 function snapshotCache(cache, mostRecentLineIndex) {
+  // Frozen copies keep older steps safe when the live cache changes.
   return Object.freeze(
     cache.map((line) =>
       Object.freeze({
@@ -44,6 +68,17 @@ function snapshotCache(cache, mostRecentLineIndex) {
   );
 }
 
+/**
+ * Runs a full Fully Associative cache simulation using MRU replacement.
+ *
+ * @param {Object} configuration - Settings used by the simulation.
+ * @param {number[]} configuration.sequence - Shared block-access sequence.
+ * @param {number} configuration.cacheBlocks - Number of cache lines.
+ * @param {number} configuration.blockSize - Number of words in one block.
+ * @param {string} configuration.readPolicy - Selected read policy.
+ * @param {Object} configuration.timing - Timing values used by the simulator.
+ * @returns {Object} Events, final cache state, statistics, and timing unit.
+ */
 export function simulateFullyAssociativeMRU({
   sequence,
   cacheBlocks,
@@ -63,6 +98,8 @@ export function simulateFullyAssociativeMRU({
 
   safeSequence.forEach((requestedBlock, sequenceIndex) => {
     const step = sequenceIndex + 1;
+
+    // A block may be stored in any line, so every valid line is checked.
     let line = cache.find(
       (candidate) => candidate.valid && candidate.block === requestedBlock,
     );
@@ -70,20 +107,23 @@ export function simulateFullyAssociativeMRU({
     let evictedBlock = null;
 
     if (!hit) {
+      // Use the first empty line before removing any block.
       line = cache.find((candidate) => !candidate.valid);
 
       if (line === undefined) {
+        // A full cache removes the line that was used most recently.
         line = findMostRecentlyUsedLine(cache);
         evictedBlock = line.block;
       }
 
       line.valid = true;
       line.block = requestedBlock;
-      // A fully associative cache has no index bits, so its tag identifies the
-      // complete main-memory block.
+
+      // There is no fixed line, so the block number can be used as the tag.
       line.tag = requestedBlock;
     }
 
+    // A hit or a new block becomes the most recently used line.
     line.lastUsedAt = step;
     const lineIndex = line.lineIndex;
     const result = hit ? "hit" : "miss";
@@ -97,6 +137,7 @@ export function simulateFullyAssociativeMRU({
       message = `Miss: block ${requestedBlock} replaced the most recently used block ${evictedBlock} in line ${lineIndex}.`;
     }
 
+    // Save everything the interface needs to show this step later.
     events.push(
       Object.freeze({
         organization: "fully-associative-mru",
@@ -117,6 +158,7 @@ export function simulateFullyAssociativeMRU({
     );
   });
 
+  // Mark the final MRU line in the last cache snapshot.
   const mostRecentLine = findMostRecentlyUsedLine(cache);
 
   return Object.freeze({

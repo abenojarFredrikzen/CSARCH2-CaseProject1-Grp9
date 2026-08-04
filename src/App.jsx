@@ -1,3 +1,7 @@
+/**
+ * Connects the cache engines to the simulator interface.
+ */
+
 import { useEffect, useMemo, useState, useRef } from "react";
 import CacheGrid from "./components/CacheGrid.jsx";
 import ConfigurationPanel from "./components/ConfigurationPanel.jsx";
@@ -14,6 +18,7 @@ import {
   simulateComparison,
 } from "./core/index.js";
 
+// These values appear when the page first opens.
 const DEFAULT_CONFIGURATION = Object.freeze({
   blockSize: 16,
   cacheBlocks: 16,
@@ -25,7 +30,14 @@ const DEFAULT_CONFIGURATION = Object.freeze({
   additionalWordTime: 10,
 });
 
+/**
+ * Turns the form settings into one complete cache comparison.
+ *
+ * @param {Object} configuration - Values from the configuration form.
+ * @returns {Object} Checked settings and results from both cache engines.
+ */
 function createSimulation(configuration) {
+  // Number inputs arrive as text after a user edits them.
   const normalized = {
     ...configuration,
     blockSize: Number(configuration.blockSize),
@@ -35,11 +47,15 @@ function createSimulation(configuration) {
     firstMemoryWordTime: Number(configuration.firstMemoryWordTime),
     additionalWordTime: Number(configuration.additionalWordTime),
   };
+
+  // Build the selected sequence once so both engines receive the same input.
   const sequence = generateTrace({
     type: normalized.traceType,
     cacheBlocks: normalized.cacheBlocks,
     seed: normalized.seed,
   });
+
+  // Run both cache engines before the interface starts playback.
   const comparison = simulateComparison({
     sequence,
     cacheBlocks: normalized.cacheBlocks,
@@ -56,7 +72,13 @@ function createSimulation(configuration) {
   return Object.freeze({ configuration: normalized, comparison });
 }
 
+/**
+ * Shows the full cache simulator page.
+ *
+ * @returns {JSX.Element} The simulator interface.
+ */
 function App() {
+  // Form and result state are kept separate so old results can be cleared.
   const [configuration, setConfiguration] = useState(DEFAULT_CONFIGURATION);
   const [simulation, setSimulation] = useState(() =>
     createSimulation(DEFAULT_CONFIGURATION),
@@ -67,6 +89,7 @@ function App() {
   const [speed, setSpeed] = useState(650);
   const [error, setError] = useState("");
 
+  // These values are taken from the current simulation for both panels.
   const directEvents = simulation?.comparison.directMapped.events ?? [];
   const associativeEvents =
     simulation?.comparison.fullyAssociativeMRU.events ?? [];
@@ -77,6 +100,7 @@ function App() {
   const associativeEvent =
     currentStep > 0 ? associativeEvents[currentStep - 1] : null;
 
+  // Statistics only use the events that have already been shown.
   const directStatistics = useMemo(
     () => calculateStatistics(directEvents.slice(0, currentStep)),
     [directEvents, currentStep],
@@ -86,6 +110,7 @@ function App() {
     [associativeEvents, currentStep],
   );
 
+  // Play moves both cache panels forward by one shared step after each delay.
   useEffect(() => {
     if (!isPlaying) return undefined;
 
@@ -101,6 +126,11 @@ function App() {
     return () => window.clearTimeout(timer);
   }, [currentStep, isPlaying, speed, totalSteps]);
 
+  /**
+   * Clears old results when a setting changes.
+   *
+   * @param {Object} nextConfiguration - New values from the form.
+   */
   function invalidateSimulation(nextConfiguration) {
     setConfiguration(nextConfiguration);
     setSimulation(null);
@@ -109,6 +139,11 @@ function App() {
     setError("");
   }
 
+  /**
+   * Runs a new comparison after the form is submitted.
+   *
+   * @param {Event} event - Form submit event.
+   */
   function runSimulation(event) {
     event.preventDefault();
 
@@ -126,6 +161,7 @@ function App() {
     }
   }
 
+  // A new visible seed creates a new Random sequence that can be repeated later.
   function regenerateSeed() {
     invalidateSimulation({
       ...configuration,
@@ -133,6 +169,7 @@ function App() {
     });
   }
 
+  // Final mode jumps to the end. Step mode starts again from the empty cache.
   function changeViewMode(mode) {
     setViewMode(mode);
     setIsPlaying(false);
