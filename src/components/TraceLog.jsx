@@ -1,15 +1,24 @@
 import { useEffect, useRef } from "react";
 
+/**
+ * Changes an event result into the label shown in the table.
+ */
 function outcome(event) {
   if (!event) return "—";
   return event.result === "hit" ? "Hit" : "Miss";
 }
 
+/**
+ * Shows which block was removed, or a dash when nothing was removed.
+ */
 function eviction(event) {
   if (!event || event.evictedBlock === null) return "—";
   return `Block ${event.evictedBlock}`;
 }
 
+/**
+ * Shows the complete side-by-side event history for both caches.
+ */
 export default function TraceLog({
   directEvents,
   associativeEvents,
@@ -19,6 +28,7 @@ export default function TraceLog({
 
   const tableRef = useRef(null);
 
+  // Keep the current step visible inside the trace table.
   useEffect(() => {
     if (tableRef.current && currentStep > 0) {
       const container = tableRef.current;
@@ -27,10 +37,12 @@ export default function TraceLog({
         const containerRect = container.getBoundingClientRect();
         const rowRect = currentRow.getBoundingClientRect();
 
+        // Check whether the current row is above or below the visible area.
         const isAbove = rowRect.top < containerRect.top;
         const isBelow = rowRect.bottom > containerRect.bottom;
 
         if (isAbove || isBelow) {
+          // Leave some space above the row when the table scrolls.
           const offset =
             currentRow.offsetTop -
             container.clientHeight / 4 +
@@ -84,8 +96,11 @@ export default function TraceLog({
           </thead>
           <tbody>
             {directEvents.map((directEvent, index) => {
+              // Both event lists use the same index because their trace is shared.
               const associativeEvent = associativeEvents[index];
               const step = index + 1;
+
+              // Row classes show which steps are finished and which one is current.
               const rowState =
                 step === currentStep
                   ? "trace-row--current"
@@ -114,4 +129,3 @@ export default function TraceLog({
     </section>
   );
 }
-

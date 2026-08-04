@@ -1,11 +1,15 @@
 import { useEffect, useRef } from "react";
 
+// These names are shown above the generated sequence.
 const traceNames = {
   sequential: "Sequential sequence",
   "mid-repeat": "Mid-repeat sequence",
   random: "Seeded random sequence",
 };
 
+/**
+ * Shows the shared access sequence and its current playback step.
+ */
 export default function SequencePanel({
   sequence,
   traceType,
@@ -15,6 +19,7 @@ export default function SequencePanel({
 
   const sequenceListRef = useRef(null);
 
+  // Keep the current block visible inside the horizontal sequence strip.
   useEffect(() => {
     if (sequenceListRef.current && currentStep > 0) {
       const container = sequenceListRef.current;
@@ -23,11 +28,12 @@ export default function SequencePanel({
         const containerRect = container.getBoundingClientRect();
         const elementRect = currentElement.getBoundingClientRect();
 
-
+        // Check whether the current block is outside the visible area.
         const isLeft = elementRect.left < containerRect.left;
         const isRight = elementRect.right > containerRect.right;
 
         if (isLeft || isRight) {
+          // Leave some space before the block when the list scrolls.
           const offset =
             currentElement.offsetLeft -
             container.clientWidth / 8 +
@@ -68,6 +74,8 @@ export default function SequencePanel({
       <ol className="sequence-list" aria-label="Generated block access sequence" ref={sequenceListRef}>
         {sequence.map((block, index) => {
           const step = index + 1;
+
+          // Each block is marked as finished, current, or still upcoming.
           const state =
             step === currentStep
               ? "current"
@@ -90,4 +98,3 @@ export default function SequencePanel({
     </section>
   );
 }
-
