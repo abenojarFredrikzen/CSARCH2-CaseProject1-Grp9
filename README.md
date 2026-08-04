@@ -247,11 +247,126 @@ supported cache size is 512 blocks.
 
 ### Invalid and Edge-Input tests
 
+#### I01 - Non-power-of-two block size
+
+Block size `3` is rejected because the block size must be a power of two and
+at least 2 words.
+
+![I01 - Non-power-of-two block size](docs/screenshots/I01.png)
+
+#### I02 - Non-power-of-two cache size
+
+Cache size `6` is rejected because the number of cache blocks must be a power
+of two and at least 4.
+
+![I02 - Non-power-of-two cache size](docs/screenshots/I02.png)
+
+#### I03 - Required trace exceeds main memory
+
+A cache size of `1024` is rejected for the Sequential test because its required
+`0` to `2n - 1` trace would exceed the 1,024-block main memory.
+
+![I03 - Required trace exceeds main memory](docs/screenshots/I03.png)
+
+#### I04 - Decimal block size
+
+Block size `2.5` is rejected because block sizes must be whole-number powers of
+two.
+
+![I04 - Decimal block size](docs/screenshots/I04.png)
+
+#### I05 - Zero cache-access time
+
+Cache-access time `0` is rejected because cache-access time must be a finite
+positive number.
+
+![I05 - Zero cache-access time](docs/screenshots/I05.png)
+
+#### I06 - Random seed above the allowed range
+
+Seed `4294967296` is rejected because the largest allowed seed is `4294967295`.
+
+![I06 - Random seed above the allowed range](docs/screenshots/I06.png)
+
+#### I07 - Blank Random seed
+
+A blank Random seed is safely treated as seed `0`, producing a complete
+64-access sequence without an error.
+
+![I07 - Blank Random seed becomes seed zero](docs/screenshots/I07.png)
+
 ### Cache-operation tests
 
 ### Statistical-Output tests
 
 ### Read-policy and timing tests
+
+The timing tests use cache-access time `C = 1 ns`, first-memory-word time
+`M = 100 ns`, additional-word time `R = 10 ns`, 16 cache blocks, and the
+Sequential sequence.
+
+#### T01 - Block size 16 with Load-through
+
+The first screenshot records the complete configuration used for the test.
+
+![T01-1 - Load-through configuration with block size 16](docs/screenshots/T01-1.png)
+
+The final statistics show an average access time of `101 ns` for Direct Mapped
+and `76 ns` for Fully Associative + MRU.
+
+![T01-2 - Load-through final statistics with block size 16](docs/screenshots/T01-2.png)
+
+The first trace entry is a `101 ns` miss for both organizations, matching
+`C + M = 1 + 100 = 101 ns`.
+
+![T01-3 - Load-through miss timing](docs/screenshots/T01-3.png)
+
+At Step 33, Direct Mapped records another `101 ns` miss while Fully Associative
++ MRU records a `1 ns` hit, matching the cache-hit time `C`.
+
+![T01-4 - Cache hit timing at Step 33](docs/screenshots/T01-4.png)
+
+#### T02 - Block size 16 with Non-load-through
+
+The configuration keeps the same sequence and timing values while changing
+only the read policy to Non-load-through.
+
+![T02-1 - Non-load-through configuration with block size 16](docs/screenshots/T02-1.png)
+
+The final statistics show an average access time of `252 ns` for Direct Mapped
+and `189.25 ns` for Fully Associative + MRU. The hit and miss counts remain the
+same as the Load-through run.
+
+![T02-2 - Non-load-through final statistics with block size 16](docs/screenshots/T02-2.png)
+
+The first trace entry is a `252 ns` miss for both organizations, matching
+`C + M + (B - 1)R + C = 1 + 100 + (15 x 10) + 1 = 252 ns`.
+
+![T02-3 - Non-load-through miss timing](docs/screenshots/T02-3.png)
+
+#### T03 - Block size 32 with Load-through
+
+Increasing the block size to 32 does not change the Load-through miss time.
+
+![T03-1 - Load-through configuration with block size 32](docs/screenshots/T03-1.png)
+
+The average times remain `101 ns` for Direct Mapped and `76 ns` for Fully
+Associative + MRU.
+
+![T03-2 - Load-through statistics with block size 32](docs/screenshots/T03-2.png)
+
+#### T04 - Block size 32 with Non-load-through
+
+With a larger block, Non-load-through must wait for more additional-word
+transfers.
+
+![T04-1 - Non-load-through configuration with block size 32](docs/screenshots/T04-1.png)
+
+The miss time becomes
+`1 + 100 + (31 x 10) + 1 = 412 ns`. The final averages are `412 ns` for Direct
+Mapped and `309.25 ns` for Fully Associative + MRU.
+
+![T04-2 - Non-load-through statistics with block size 32](docs/screenshots/T04-2.png)
 
 ## How to use the simulator
 
