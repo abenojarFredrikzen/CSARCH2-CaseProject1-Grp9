@@ -80,6 +80,8 @@ describe("input validation", () => {
   });
 
   it("rejects invalid powers of two", () => {
+    expect(() => validateBlockSize(1)).toThrow(/power of two/);
+    expect(() => validateBlockSize(2.5)).toThrow(/power of two/);
     expect(() => validateBlockSize(3)).toThrow(/power of two/);
     expect(() => validateCacheBlocks(6)).toThrow(/power of two/);
   });

@@ -54,7 +54,8 @@ export default function ConfigurationPanel({
         <span className="status-pill">Main memory: 1,024 blocks</span>
       </div>
 
-      <form onSubmit={onRun}>
+      {/* Let the simulator show every input error in the red warning box. */}
+      <form onSubmit={onRun} noValidate>
         <div className="configuration-grid">
           <NumberField
             id="block-size"
