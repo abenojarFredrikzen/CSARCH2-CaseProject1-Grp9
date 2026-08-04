@@ -1,3 +1,5 @@
+import { useEffect, useRef } from "react";
+
 const traceNames = {
   sequential: "Sequential sequence",
   "mid-repeat": "Mid-repeat sequence",
@@ -10,6 +12,25 @@ export default function SequencePanel({
   seed,
   currentStep,
 }) {
+
+  const sequenceListRef = useRef(null);
+
+  // Scroll the current step into view whenever currentStep changes
+  useEffect(() => {
+    if (sequenceListRef.current && currentStep !== undefined) {
+      const currentElement = sequenceListRef.current.querySelector(
+        `.sequence-token--current`
+      );
+      if (currentElement) {
+        currentElement.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+          inline: "center",
+        });
+      }
+    }
+  }, [currentStep]);
+
   if (!sequence) {
     return (
       <section className="panel empty-panel" aria-labelledby="sequence-title">
@@ -33,7 +54,7 @@ export default function SequencePanel({
         </div>
       </div>
 
-      <ol className="sequence-list" aria-label="Generated block access sequence">
+      <ol className="sequence-list" aria-label="Generated block access sequence" ref={sequenceListRef}>
         {sequence.map((block, index) => {
           const step = index + 1;
           const state =

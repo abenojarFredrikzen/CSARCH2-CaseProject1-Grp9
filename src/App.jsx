@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import CacheGrid from "./components/CacheGrid.jsx";
 import ConfigurationPanel from "./components/ConfigurationPanel.jsx";
 import Legend from "./components/Legend.jsx";
