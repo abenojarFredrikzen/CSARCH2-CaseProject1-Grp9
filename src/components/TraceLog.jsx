@@ -1,3 +1,5 @@
+import { useEffect, useRef } from "react";
+
 function outcome(event) {
   if (!event) return "—";
   return event.result === "hit" ? "Hit" : "Miss";
@@ -14,15 +16,34 @@ export default function TraceLog({
   currentStep,
   timingUnit,
 }) {
-  if (directEvents.length === 0) {
-    return (
-      <section className="panel empty-panel" aria-labelledby="trace-title">
-        <p className="section-kicker">Required output</p>
-        <h2 id="trace-title">Complete trace log</h2>
-        <p>The combined trace appears after a valid comparison is run.</p>
-      </section>
-    );
-  }
+
+  const tableRef = useRef(null);
+
+  useEffect(() => {
+    if (tableRef.current && currentStep > 0) {
+      const container = tableRef.current;
+      const currentRow = container.querySelector(`tr.trace-row--current`);
+      if (currentRow) {
+        const containerRect = container.getBoundingClientRect();
+        const rowRect = currentRow.getBoundingClientRect();
+
+        const isAbove = rowRect.top < containerRect.top;
+        const isBelow = rowRect.bottom > containerRect.bottom;
+
+        if (isAbove || isBelow) {
+          const offset =
+            currentRow.offsetTop -
+            container.clientHeight / 4 +
+            currentRow.clientHeight / 4;
+
+          container.scrollTo({
+            top: offset,
+            behavior: 'smooth',
+          });
+        }
+      }
+    }
+  }, [currentStep]);
 
   return (
     <section className="panel trace-panel" aria-labelledby="trace-title">
@@ -34,7 +55,7 @@ export default function TraceLog({
         <span className="status-pill">{directEvents.length} recorded steps</span>
       </div>
 
-      <div className="table-scroll" tabIndex="0">
+      <div className="table-scroll" tabIndex="0" ref={tableRef}>
         <table>
           <caption className="visually-hidden">
             Complete synchronized trace for both cache organizations
