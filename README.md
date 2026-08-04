@@ -245,6 +245,63 @@ supported cache size is 512 blocks.
 
 ### Valid configuration tests
 
+#### V01 – Minimum valid configuration
+  Block size: 2
+  Cache blocks: 4
+  Expected: accepted and runs normally.
+![V01 – Minimum valid configuration](docs/screenshots/V01.png)
+
+#### V02 – Recommended configuration
+  Block size: 16
+  Cache blocks: 16
+  Expected: accepted.
+![V02 – Recommended configuration](docs/screenshots/V02.png)
+
+#### V03 – Different valid configuration
+  Block size: 4
+  Cache blocks: 8
+  Expected: accepted.
+![V03 – Different valid configuration](docs/screenshots/V03.png)
+
+#### V04 – Larger valid configuration
+  Block size: 32 or 64
+  Cache blocks: 32
+  Expected: accepted.
+![IV04 – Larger valid configuration](docs/screenshots/V04.png)
+
+#### V05 – Another valid power-of-two combination
+  Block size: 8
+  Cache blocks: 64
+  Expected: accepted.
+![V05 – Another valid power-of-two combination](docs/screenshots/V05-7.png)
+
+#### V06 – Decimal timing values
+  C = 0.5
+  M = 50.5
+  R = 2.25
+  Expected: accepted and produces decimal timing results.
+![V06 – Decimal timing values](docs/screenshots/V05-7.png)
+
+####V07 – Zero additional-word time
+  R = 0
+  Expected: accepted.
+![V07 – Zero additional-word time](docs/screenshots/V05-7.png)
+
+####V08 – Lowest Random seed
+Seed: 0
+Expected: accepted and reproducible.
+![V08 – Lowest Random seed](docs/screenshots/V08.png)
+
+####V09 – Highest Random seed
+  Seed: 4294967295
+  Expected: accepted and reproducible.
+![V09 – Highest Random seed](docs/screenshots/V09-10.png)
+
+####V10 – Largest Sequential boundary
+Cache blocks: 512
+Expected: accepted because the highest requested block is 1023.
+![V10 – Largest Sequential boundary](docs/screenshots/V09-10.png)
+
 ### Invalid and Edge-Input tests
 
 #### I01 - Non-power-of-two block size
@@ -298,7 +355,7 @@ A blank Random seed is safely treated as seed `0`, producing a complete
 ### Cache-operation tests
 
 ### Statistical-Output tests
-
+![Statistical-Output tests](docs/screenshots/StatisticalOutput.png)
 ### Read-policy and timing tests
 
 The timing tests use cache-access time `C = 1 ns`, first-memory-word time
