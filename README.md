@@ -403,37 +403,60 @@ A blank Random seed is safely treated as seed `0`, producing a complete
 
 #### C01 – Step zero
     Both caches should be empty.
-![C01 - Step zero](docs/screenshots/C01.png)
+![C01 - Step zero](docs/screenshots/C01.PNG)
 
 #### C02 – First access to block 0
     Both caches should miss and place block 0 in line 0.
-![C02 - First access to block 0](docs/screenshots/C02.png)
+![C02 - First access to block 0](docs/screenshots/C02.PNG)
 
 #### C03 – Direct Mapped block 16 with n = 16
     Block 16 should map to line 0.
     Tag should be 1.
     Block 0 should be evicted.
-![C03-1 - Direct Mapped block 16 with n = 16](docs/screenshots/C03-1.png)
-![C03-2 - Direct Mapped block 16 with n = 16](docs/screenshots/C03-2.png)
+![C03-1 - Direct Mapped block 16 with n = 16](docs/screenshots/C03-1.PNG)
+![C03-2 - Direct Mapped block 16 with n = 16](docs/screenshots/C03-2.PNG)
 
 #### C04 – Direct Mapped conflicts
     Blocks 0, 16, 32, and similar blocks should map to the same line.
+![C04-1 - Direct Mapped conflict mapping](docs/screenshots/C04-1.PNG)
+![C04-2 - Direct Mapped conflict result](docs/screenshots/C04-2.PNG)
+
 #### C05 – FA empty-line filling
     Fully Associative should use empty lines before replacing blocks.
+![C05-1 - Fully Associative empty-line filling](docs/screenshots/C05-1.PNG)
+![C05-2 - Fully Associative empty-line result](docs/screenshots/C05-2.PNG)
+
 #### C06 – MRU marker
     The most recently accessed block should receive the MRU state.
+![C06 - Most recently used marker](docs/screenshots/C06.PNG)
+
 #### C07 – First FA replacement during Sequential
     When block 16 is accessed, MRU block 15 should be evicted.
+![C07 - First Fully Associative replacement](docs/screenshots/C07.PNG)
+
 #### C08 – Sequential second pass
     When block 0 is accessed again, Direct Mapped should miss while FA + MRU should hit.
+![C08 - Sequential second-pass comparison](docs/screenshots/C08.PNG)
+
 #### C09 – Mid-repeat early repeat
     Repeated blocks should produce the expected hits.
+![C09-1 - Mid-repeat early repeat](docs/screenshots/C09-1.PNG)
+![C09-2 - Mid-repeat repeated-block result](docs/screenshots/C09-2.PNG)
+
 #### C10 – Previous button
     Going backward should restore the earlier cache snapshot.
+![C10-1 - Cache state before using Previous](docs/screenshots/C10-1.PNG)
+![C10-2 - Restored cache state after using Previous](docs/screenshots/C10-2.PNG)
+
 #### C11 – Final snapshot
     Final cache contents should match the last trace event.
+![C11-1 - Final cache snapshot](docs/screenshots/C11-1.PNG)
+![C11-2 - Last trace event](docs/screenshots/C11-2.PNG)
+
 #### C12 – Eviction display
     The cache visualization and trace log should show the same evicted block.
+![C12-1 - Eviction shown in the cache visualization](docs/screenshots/C12-1.PNG)
+![C12-2 - Matching eviction in the trace log](docs/screenshots/C12-2.PNG)
 
 ### Statistical-Output tests
 ![Statistical-Output tests](docs/screenshots/StatisticalOutput.png)
