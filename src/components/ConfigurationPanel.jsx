@@ -130,8 +130,8 @@ export default function ConfigurationPanel({
         <details className="timing-settings">
           <summary>Timing assumptions</summary>
           <p>
-            These values are configurable because the assignment does not provide
-            official timing constants.
+            Adjust these values to explore different cache and memory timing
+            assumptions.
           </p>
           <div className="configuration-grid configuration-grid--timing">
             <NumberField
