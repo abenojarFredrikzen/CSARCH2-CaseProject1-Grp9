@@ -138,9 +138,12 @@ The returned object contains the shared sequence and separate Direct Mapped and 
 Main memory contains 1,024 blocks. Because the required Sequential and Mid-repeat traces access through block `2n - 1`, those required trace generators accept at most 512 cache blocks.
 
 ## Analysis Write-up
-### Sequential sequence:
+### Sequential sequence: 
+`n = 4; 0, 1, 2, 3, 4, 5, 6, 7, 0, 1, 2, 3, 4, 5, 6, 7`
 
 
 ### Mid-repeat blocks:
+`n = 4; 0, 1, 2, 3,  0, 1, 2, 3, 4, 5, 6, 7,  0, 1, 2, 3, 4, 5, 6, 7,  3, 2, 1, 0,  7, 6, 5, 4, 3, 2, 1, 0,  7, 6, 5, 4, 3, 2, 1, 0`
 
 ### Random sequence:
+`Random sequence of 64 block accesses`
