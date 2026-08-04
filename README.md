@@ -401,6 +401,40 @@ A blank Random seed is safely treated as seed `0`, producing a complete
 
 ### Cache-operation tests
 
+#### C01 – Step zero
+    Both caches should be empty.
+![C01 - Step zero](docs/screenshots/C01.png)
+
+#### C02 – First access to block 0
+    Both caches should miss and place block 0 in line 0.
+![C02 - First access to block 0](docs/screenshots/C02.png)
+
+#### C03 – Direct Mapped block 16 with n = 16
+    Block 16 should map to line 0.
+    Tag should be 1.
+    Block 0 should be evicted.
+![C03-1 - Direct Mapped block 16 with n = 16](docs/screenshots/C03-1.png)
+![C03-2 - Direct Mapped block 16 with n = 16](docs/screenshots/C03-2.png)
+
+#### C04 – Direct Mapped conflicts
+    Blocks 0, 16, 32, and similar blocks should map to the same line.
+#### C05 – FA empty-line filling
+    Fully Associative should use empty lines before replacing blocks.
+#### C06 – MRU marker
+    The most recently accessed block should receive the MRU state.
+#### C07 – First FA replacement during Sequential
+    When block 16 is accessed, MRU block 15 should be evicted.
+#### C08 – Sequential second pass
+    When block 0 is accessed again, Direct Mapped should miss while FA + MRU should hit.
+#### C09 – Mid-repeat early repeat
+    Repeated blocks should produce the expected hits.
+#### C10 – Previous button
+    Going backward should restore the earlier cache snapshot.
+#### C11 – Final snapshot
+    Final cache contents should match the last trace event.
+#### C12 – Eviction display
+    The cache visualization and trace log should show the same evicted block.
+
 ### Statistical-Output tests
 ![Statistical-Output tests](docs/screenshots/StatisticalOutput.png)
 ### Read-policy and timing tests
