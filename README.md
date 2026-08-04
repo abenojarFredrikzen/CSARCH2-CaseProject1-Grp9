@@ -243,6 +243,56 @@ supported cache size is 512 blocks.
 
 ### Required sequence tests
 
+#### S01 – Sequential with n = 4 
+    Exact sequence should be blocks 0 to 7, repeated twice.
+    Total: 16 accesses.
+![S01 – Sequential with n = 4](docs/screenshots/S01.png)
+
+#### S02 – Sequential with n = 16 
+    Blocks 0 to 31 should appear twice.
+    Total: 64 accesses.
+![S02 – Sequential with n = 16](docs/screenshots/S02.png)
+
+#### S03 – Mid-repeat with n = 4 
+    Confirm the exact 40-access pattern shown in the specification.
+![S04 – Mid-repeat with n = 4](docs/screenshots/S03.png)
+
+#### S04 – Mid-repeat with n = 16 
+    Confirm the forward and reverse pattern.
+    Total: 160 accesses.
+![S04 – Mid-repeat with n = 16](docs/screenshots/S04.png)
+
+#### S05 – Random length & S06 – Random range 
+    Confirm exactly 64 accesses are generated.
+    Every generated block must be from 0 to 1023.
+![S05 - Random length & S06 – Random range](docs/screenshots/S05-S06.png)  
+
+#### S07 – Repeated Random seed 
+    Enter the same seed twice.
+    Confirm the exact same sequence appears.
+![S07 – Repeated Random seed](docs/screenshots/S07.png)    
+
+#### S08 – Different Random seed 
+    Press New seed.
+    Confirm the seed and generated sequence change.
+![S08 – Different Random seed](docs/screenshots/S08.png)
+
+#### S09 – Shared input 
+    Confirm both cache organizations process the same block at every step.
+![S09 – Shared input](docs/screenshots/S09.png)    
+
+#### S10 – Empty starting state
+    Confirm every new run begins with both caches empty.
+![S10 – Empty starting state](docs/screenshots/S10.png)    
+
+#### S11 – Complete trace
+    Confirm the trace has 64 rows for Sequential and Random.
+![S11 – Complete trace](docs/screenshots/S11-Sequential.png)    
+![S11 – Complete trace](docs/screenshots/S11-Random.png)    
+    Confirm the trace has 160 rows for Mid-repeat.
+![S11 – Complete trace](docs/screenshots/S11-Mid-repeat.png) 
+
+
 ### Valid configuration tests
 
 #### V01 – Minimum valid configuration
