@@ -1,3 +1,7 @@
+/**
+ * Gives the interface one place to import all public simulator tools.
+ */
+
 export { simulateDirectMapped } from "./directMapped.js";
 export { simulateFullyAssociativeMRU } from "./fullyAssociativeMRU.js";
 export { simulateComparison } from "./simulate.js";
@@ -26,4 +30,3 @@ export {
   validateReadPolicy,
   validateRequiredTraceSize,
 } from "./validation.js";
-

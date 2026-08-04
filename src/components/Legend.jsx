@@ -1,3 +1,6 @@
+/**
+ * Explains the colors used by the cache-line display.
+ */
 export default function Legend() {
   return (
     <div className="legend" aria-label="Cache visualization legend">
@@ -8,4 +11,3 @@ export default function Legend() {
     </div>
   );
 }
-

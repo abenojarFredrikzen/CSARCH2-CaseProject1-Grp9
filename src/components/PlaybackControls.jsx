@@ -1,3 +1,6 @@
+/**
+ * Shows the buttons and options used to move through the shared trace.
+ */
 export default function PlaybackControls({
   currentStep,
   totalSteps,
@@ -12,6 +15,7 @@ export default function PlaybackControls({
   onSpeedChange,
   onViewModeChange,
 }) {
+  // Controls stay disabled until a simulation has at least one step.
   const hasSimulation = totalSteps > 0;
   const stepMode = viewMode === "step";
 
@@ -111,4 +115,3 @@ export default function PlaybackControls({
     </section>
   );
 }
-

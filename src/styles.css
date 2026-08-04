@@ -1,3 +1,4 @@
+/* Colors, fonts, and values shared across the page. */
 :root {
   font-family:
     "Lexend", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
@@ -25,6 +26,7 @@
   --shadow: 0 18px 50px rgb(0 0 0 / 22%);
 }
 
+/* Basic page and control setup. */
 * {
   box-sizing: border-box;
   scrollbar-width: thin;
@@ -124,6 +126,7 @@ h2 {
   overflow-x: clip;
 }
 
+/* Project heading and quick facts. */
 .hero {
   display: flex;
   align-items: flex-end;
@@ -208,6 +211,7 @@ main > * {
   min-width: 0;
 }
 
+/* Shared panel layout. */
 .panel,
 .cache-panel {
   border: 1px solid var(--border);
@@ -247,6 +251,7 @@ main > * {
   font-weight: 700;
 }
 
+/* Configuration form. */
 .configuration-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -382,6 +387,7 @@ select:hover {
   gap: 0.5rem;
 }
 
+/* Sequence preview and playback controls. */
 .sequence-list {
   display: flex;
   gap: 0.42rem;
@@ -512,6 +518,7 @@ progress::-moz-progress-bar {
   padding: 0 0.25rem;
 }
 
+/* Side-by-side cache display. */
 .cache-comparison {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -729,6 +736,7 @@ progress::-moz-progress-bar {
   text-align: right;
 }
 
+/* Required statistics and trace table. */
 .statistics-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -871,6 +879,7 @@ tbody tr:nth-child(even) {
   padding: 0.25rem 0.4rem;
 }
 
+/* Notes, footer, and small helper styles. */
 .assumptions-panel {
   display: grid;
   grid-template-columns: minmax(200px, 0.45fr) minmax(0, 1.55fr);
@@ -920,6 +929,7 @@ footer {
   border: 0;
 }
 
+/* Layout changes for smaller screens. */
 @media (max-width: 1050px) {
   .hero {
     align-items: stretch;

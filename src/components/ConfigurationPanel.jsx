@@ -4,12 +4,16 @@ import {
   TRACE_TYPES,
 } from "../core/index.js";
 
+// These labels are shown in the test-case menu.
 const testLabels = {
   [TRACE_TYPES.SEQUENTIAL]: "Sequential",
   [TRACE_TYPES.MID_REPEAT]: "Mid-repeat",
   [TRACE_TYPES.RANDOM]: "Random (64 accesses)",
 };
 
+/**
+ * Shows one reusable number input with a label and optional hint.
+ */
 function NumberField({ id, label, hint, value, min, step = 1, onChange }) {
   return (
     <label className="field" htmlFor={id}>
@@ -27,6 +31,9 @@ function NumberField({ id, label, hint, value, min, step = 1, onChange }) {
   );
 }
 
+/**
+ * Shows all settings needed to start a cache comparison.
+ */
 export default function ConfigurationPanel({
   configuration,
   error,
@@ -34,6 +41,7 @@ export default function ConfigurationPanel({
   onRegenerateSeed,
   onRun,
 }) {
+  // Keep the other form values while changing one field.
   const update = (field, value) => onChange({ ...configuration, [field]: value });
 
   return (
@@ -168,4 +176,3 @@ export default function ConfigurationPanel({
     </section>
   );
 }
-

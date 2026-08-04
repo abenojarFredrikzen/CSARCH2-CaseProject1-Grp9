@@ -1,3 +1,6 @@
+/**
+ * Makes empty lines for the cache display before playback starts.
+ */
 function EmptyCache(cacheBlocks, associative) {
   return Array.from({ length: cacheBlocks }, (_, lineIndex) => ({
     lineIndex,
@@ -10,10 +13,14 @@ function EmptyCache(cacheBlocks, associative) {
   }));
 }
 
+/**
+ * Shows one cache line and its current hit, miss, eviction, or MRU state.
+ */
 function CacheLine({ line, activeEvent, organization }) {
   const isActive = activeEvent?.lineIndex === line.lineIndex;
   const classes = ["cache-line"];
 
+  // Add state classes so CSS can color the line correctly.
   if (!line.valid) classes.push("cache-line--empty");
   if (isActive) classes.push(`cache-line--${activeEvent.result}`);
   if (isActive && activeEvent.evictedBlock !== null) {
@@ -46,6 +53,9 @@ function CacheLine({ line, activeEvent, organization }) {
   );
 }
 
+/**
+ * Shows one full cache snapshot and the message for its current event.
+ */
 export default function CacheGrid({
   title,
   subtitle,
@@ -57,6 +67,8 @@ export default function CacheGrid({
   currentStep,
 }) {
   const associative = organization === "associative";
+
+  // Step zero uses empty lines because no event snapshot exists yet.
   const cache = finalCache ?? EmptyCache(cacheBlocks, associative);
 
   return (
@@ -102,4 +114,3 @@ export default function CacheGrid({
     </article>
   );
 }
-

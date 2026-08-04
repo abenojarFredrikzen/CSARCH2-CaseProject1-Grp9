@@ -1,3 +1,7 @@
+/**
+ * Checks that every required access sequence matches the assignment rules.
+ */
+
 import { describe, expect, it } from "vitest";
 import {
   generateMidRepeatSequence,
@@ -33,6 +37,7 @@ describe("required trace generators", () => {
   });
 
   it("creates a reproducible 64-access random sequence", () => {
+    // The same seed must repeat, while a different seed should change the list.
     const first = generateRandomSequence(20260803);
     const repeated = generateRandomSequence(20260803);
     const different = generateRandomSequence(20260804);
@@ -47,4 +52,3 @@ describe("required trace generators", () => {
     expect(() => generateSequentialSequence(1024)).toThrow(/1024-block main memory/);
   });
 });
-

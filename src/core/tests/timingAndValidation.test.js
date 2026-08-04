@@ -1,3 +1,7 @@
+/**
+ * Checks all timing formulas, required statistics, and invalid input handling.
+ */
+
 import { describe, expect, it } from "vitest";
 import { calculateStatistics } from "../statistics.js";
 import { calculateAccessTime } from "../timing.js";
@@ -8,6 +12,7 @@ import {
   validateCacheBlocks,
 } from "../validation.js";
 
+// Simple timing values make each expected answer easy to calculate by hand.
 const timing = {
   cacheAccessTime: 2,
   firstMemoryWordTime: 50,
@@ -84,4 +89,3 @@ describe("input validation", () => {
     expect(() => validateBlockSequence([1024])).toThrow(/0 to 1023/);
   });
 });
-

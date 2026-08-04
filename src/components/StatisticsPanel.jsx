@@ -1,9 +1,15 @@
+/**
+ * Makes long decimal values easier to read.
+ */
 function formatNumber(value, digits = 2) {
   return new Intl.NumberFormat("en-US", {
     maximumFractionDigits: digits,
   }).format(value);
 }
 
+/**
+ * Shows the seven required statistics for one cache.
+ */
 function StatisticCard({ title, accent, statistics, timingUnit }) {
   const values = [
     ["Total memory accesses", statistics.totalAccesses],
@@ -36,6 +42,9 @@ function StatisticCard({ title, accent, statistics, timingUnit }) {
   );
 }
 
+/**
+ * Shows both statistic cards and a short hit comparison.
+ */
 export default function StatisticsPanel({
   directStatistics,
   associativeStatistics,
@@ -44,6 +53,7 @@ export default function StatisticsPanel({
   const hitDifference =
     associativeStatistics.cacheHits - directStatistics.cacheHits;
 
+  // The message changes based on which cache has more hits so far.
   let comparisonMessage = "Both organizations currently have the same number of hits.";
   if (hitDifference > 0) {
     comparisonMessage = `Fully Associative + MRU currently has ${hitDifference} more ${hitDifference === 1 ? "hit" : "hits"}.`;
@@ -79,4 +89,3 @@ export default function StatisticsPanel({
     </section>
   );
 }
-

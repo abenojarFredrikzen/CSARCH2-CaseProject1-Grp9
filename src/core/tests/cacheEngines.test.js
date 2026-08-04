@@ -1,3 +1,7 @@
+/**
+ * Checks cache placement, MRU replacement, timing, and known final results.
+ */
+
 import { describe, expect, it } from "vitest";
 import { simulateDirectMapped } from "../directMapped.js";
 import { simulateFullyAssociativeMRU } from "../fullyAssociativeMRU.js";
@@ -8,6 +12,7 @@ import {
 } from "../traceGenerators.js";
 import { READ_POLICIES } from "../validation.js";
 
+// Small values make line changes and hand-checked results easy to follow.
 const baseConfiguration = Object.freeze({
   cacheBlocks: 4,
   blockSize: 2,
@@ -86,6 +91,7 @@ describe("Fully Associative + MRU cache", () => {
 });
 
 describe("Machine 8 golden results", () => {
+  // These settings are used by the main known-result checks in the project plan.
   const n16Configuration = {
     ...baseConfiguration,
     cacheBlocks: 16,
