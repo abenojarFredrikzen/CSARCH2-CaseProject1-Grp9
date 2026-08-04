@@ -3,8 +3,8 @@
 A web-based cache-memory simulator for comparing **Direct Mapped** and
 **Fully Associative with Most Recently Used (MRU) replacement**.
 
-- **Live application:** https://abenojarfredrikzen.github.io/CSARCH2-CaseProject1-Grp9/
-- **Video walkthrough:** [YouTube Link](https://youtu.be/K5pgyYeSePU)
+- **Live application:** [Deployed Link](https://abenojarfredrikzen.github.io/CSARCH2-CaseProject1-Grp9/)
+- **Video walkthrough:** [YouTube Video](https://youtu.be/K5pgyYeSePU)
 - **Course:** CSARCH2
 - **Section:** S04
 - **Machine:** Machine 8
