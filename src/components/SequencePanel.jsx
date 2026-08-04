@@ -16,24 +16,26 @@ export default function SequencePanel({
   const sequenceListRef = useRef(null);
 
   useEffect(() => {
-    if (sequenceListRef.current && currentStep !== undefined) {
-      const currentElement = sequenceListRef.current.querySelector(
-        `.sequence-token--current`
-      );
+    if (sequenceListRef.current && currentStep > 0) {
+      const container = sequenceListRef.current;
+      const currentElement = container.querySelector(`.sequence-token--current`);
       if (currentElement) {
-        const container = sequenceListRef.current;
         const containerRect = container.getBoundingClientRect();
         const elementRect = currentElement.getBoundingClientRect();
 
-        const isElementOutOfViewHorizontally =
-          elementRect.left < containerRect.left ||
-          elementRect.right > containerRect.right;
 
-        if (isElementOutOfViewHorizontally) {
-          currentElement.scrollIntoView({
-            behavior: "smooth",
-            block: "nearest", 
-            inline: "center", 
+        const isLeft = elementRect.left < containerRect.left;
+        const isRight = elementRect.right > containerRect.right;
+
+        if (isLeft || isRight) {
+          const offset =
+            currentElement.offsetLeft -
+            container.clientWidth / 8 +
+            currentElement.clientWidth / 8;
+
+          container.scrollTo({
+            left: offset,
+            behavior: 'smooth',
           });
         }
       }
