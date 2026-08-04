@@ -3,8 +3,8 @@
 A web-based cache-memory simulator for comparing **Direct Mapped** and
 **Fully Associative with Most Recently Used (MRU) replacement**.
 
-- **Live application:** [Open the GitHub Pages deployment](https://abenojarfredrikzen.github.io/CSARCH2-CaseProject1-Grp9/)
-- **Video walkthrough:** To be added after the final recording
+- **Live application:** https://abenojarfredrikzen.github.io/CSARCH2-CaseProject1-Grp9/
+- **Video walkthrough:** [YouTube Link](https://youtu.be/K5pgyYeSePU)
 - **Course:** CSARCH2
 - **Section:** S04
 - **Machine:** Machine 8
@@ -483,31 +483,9 @@ Mapped and `309.25 ns` for Fully Associative + MRU.
 7. Use the playback controls or choose **Final snapshot**.
 8. Review both cache grids, the statistics, and the complete trace.
 
-## Deployment
-
-The production site is built and published through GitHub Actions whenever the
-deployment workflow runs on the `main` branch.
-
-[Open the live GitHub Pages application](https://abenojarfredrikzen.github.io/CSARCH2-CaseProject1-Grp9/)
-
-## Team members and responsibilities
+## Team members
 
 - ABENOJAR, Fredrikzen
 - DOLLENTAS, Raine
 - OBREGON, Sian
 - SINGSON, Keith Railey
-
-## Video walkthrough
-
-The final five-to-eight-minute walkthrough should demonstrate:
-
-- The recommended configuration
-- Sequential, Mid-repeat, and Random tests
-- Direct Mapped and Fully Associative + MRU behavior
-- Step-by-step and final-snapshot modes
-- The complete trace and statistical outputs
-- Valid and invalid configurations
-- Load-through and Non-load-through timing
-- The live GitHub Pages deployment
-
-**YouTube URL:** To be added after upload
