@@ -418,22 +418,46 @@ A blank Random seed is safely treated as seed `0`, producing a complete
 
 #### C04 – Direct Mapped conflicts
     Blocks 0, 16, 32, and similar blocks should map to the same line.
+![C04-1 - Direct Mapped conflicts](docs/screenshots/C04-1.png)
+![C04-1 - Direct Mapped conflicts](docs/screenshots/C04-2.png)
+
 #### C05 – FA empty-line filling
     Fully Associative should use empty lines before replacing blocks.
+![C05-1 - FA empty-line filling](docs/screenshots/C05-1.png)
+![C05-2 - FA empty-line filling](docs/screenshots/C05-2.png)
+
 #### C06 – MRU marker
     The most recently accessed block should receive the MRU state.
+![C06 - MRU marker](docs/screenshots/C06.png)
+
 #### C07 – First FA replacement during Sequential
     When block 16 is accessed, MRU block 15 should be evicted.
+![C07 - First FA replacement during Sequential](docs/screenshots/C07.png)
+
 #### C08 – Sequential second pass
     When block 0 is accessed again, Direct Mapped should miss while FA + MRU should hit.
+![C08 - Sequential second pass](docs/screenshots/C08.png)
+
 #### C09 – Mid-repeat early repeat
     Repeated blocks should produce the expected hits.
+![C09-1 - Mid-repeat early repeat](docs/screenshots/C09-1.png)
+![C09-2 - Mid-repeat early repeat](docs/screenshots/C09-2.png)
+
 #### C10 – Previous button
     Going backward should restore the earlier cache snapshot.
+![C10-1 - Previous button](docs/screenshots/C10-1.png)
+![C10-2 - Previous button](docs/screenshots/C10-2.png)   
+
 #### C11 – Final snapshot
     Final cache contents should match the last trace event.
+![C11-1 - Final snapshot](docs/screenshots/C11-1.png)
+![C11-2 - Final snapshot](docs/screenshots/C11-2.png)
+
 #### C12 – Eviction display
     The cache visualization and trace log should show the same evicted block.
+![C12-1 - Eviction display](docs/screenshots/C12-1.png)
+![C12-2 - Eviction display](docs/screenshots/C12-2.png)
+
 
 ### Statistical-Output tests
 ![Statistical-Output tests](docs/screenshots/StatisticalOutput.png)
