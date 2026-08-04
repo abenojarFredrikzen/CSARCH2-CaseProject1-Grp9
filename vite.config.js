@@ -5,8 +5,8 @@ export default defineConfig({
   // Adds React support to the Vite project.
   plugins: [react()],
 
-  // Relative paths let the built site work inside a project folder.
-  base: "./",
+  // GitHub Pages hosts this app inside the repository's project folder.
+  base: "/CSARCH2-CaseProject1-Grp9/",
   test: {
     // Core tests run in Node because they do not need a browser page.
     environment: "node",
