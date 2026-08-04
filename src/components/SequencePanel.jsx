@@ -15,18 +15,27 @@ export default function SequencePanel({
 
   const sequenceListRef = useRef(null);
 
-  // Scroll the current step into view whenever currentStep changes
   useEffect(() => {
     if (sequenceListRef.current && currentStep !== undefined) {
       const currentElement = sequenceListRef.current.querySelector(
         `.sequence-token--current`
       );
       if (currentElement) {
-        currentElement.scrollIntoView({
-          behavior: "smooth",
-          block: "nearest",
-          inline: "center",
-        });
+        const container = sequenceListRef.current;
+        const containerRect = container.getBoundingClientRect();
+        const elementRect = currentElement.getBoundingClientRect();
+
+        const isElementOutOfViewHorizontally =
+          elementRect.left < containerRect.left ||
+          elementRect.right > containerRect.right;
+
+        if (isElementOutOfViewHorizontally) {
+          currentElement.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest", 
+            inline: "center", 
+          });
+        }
       }
     }
   }, [currentStep]);
