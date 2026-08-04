@@ -151,9 +151,6 @@ Default values:
 - `M = 100 ns`
 - `R = 10 ns`
 
-These are simulator assumptions and should be changed if the instructor
-provides official course values.
-
 ## Verified results
 
 The following results use:
