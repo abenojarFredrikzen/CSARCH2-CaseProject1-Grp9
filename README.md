@@ -282,22 +282,22 @@ supported cache size is 512 blocks.
   Expected: accepted and produces decimal timing results.
 ![V06 – Decimal timing values](docs/screenshots/V05-7.png)
 
-####V07 – Zero additional-word time
+#### V07 – Zero additional-word time
   R = 0
   Expected: accepted.
 ![V07 – Zero additional-word time](docs/screenshots/V05-7.png)
 
-####V08 – Lowest Random seed
+#### V08 – Lowest Random seed
 Seed: 0
 Expected: accepted and reproducible.
 ![V08 – Lowest Random seed](docs/screenshots/V08.png)
 
-####V09 – Highest Random seed
+#### V09 – Highest Random seed
   Seed: 4294967295
   Expected: accepted and reproducible.
 ![V09 – Highest Random seed](docs/screenshots/V09-10.png)
 
-####V10 – Largest Sequential boundary
+#### V10 – Largest Sequential boundary
 Cache blocks: 512
 Expected: accepted because the highest requested block is 1023.
 ![V10 – Largest Sequential boundary](docs/screenshots/V09-10.png)
